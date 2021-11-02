@@ -1,8 +1,8 @@
 # Godot Backtrace Module
 
-This module adds crash error generation support to Godot 3.x with the intent of making it possible to send the crash data to [Backtrace](https://backtrace.io/) for automatic error reporting.
+This module adds automatic crash generation support to Godot 3.x with the intent of making it possible to send the crash data to [Backtrace](https://backtrace.io/) for automatic error reporting.
 
-**Why use this module?** With automatic error reporting, you can track, examine, and resolve errors quickly and efficiently without having to rely solely on user feedback or QA sessions. By using a service like Backtrace, you can have a single hub that makes it easy to track all the issues users may be having with detailed error logs. This allows you to spend more time developing fixes and making a great product, not chasing down information.
+**Why use this module?** With automatic crash reporting, you can track, examine, and resolve errors quickly and efficiently without having to rely solely on user feedback or QA sessions. By using a service like Backtrace, you can have a single hub that makes it easy to track all the issues users may be having with detailed error logs. This allows you to spend more time developing fixes and making a great product, not chasing down information.
 
 Check out the GitHub Wiki for more information on how to install and use the module in your Godot projects!
 
