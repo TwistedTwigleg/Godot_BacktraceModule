@@ -2,7 +2,7 @@
 
 This module adds crash error generation support to Godot 3.x with the intent of making it possible to send the crash data to [Backtrace](https://backtrace.io/) for automatic error reporting.
 
-**Why use this module?** With automatic error reporting, you can track, examine, and resolve errors quickly and efficently without having to rely solely on user feedback or QA sessions. By using a service like Backtrace, you can have a single hub that makes it easy to track all the issues users may be having with detailed error logs. This allows you to spend more time developing fixes and making a great product, not chasing down information.
+**Why use this module?** With automatic error reporting, you can track, examine, and resolve errors quickly and efficiently without having to rely solely on user feedback or QA sessions. By using a service like Backtrace, you can have a single hub that makes it easy to track all the issues users may be having with detailed error logs. This allows you to spend more time developing fixes and making a great product, not chasing down information.
 
 Check out the GitHub Wiki for more information on how to install and use the module in your Godot projects!
 
@@ -10,16 +10,16 @@ Check out the GitHub Wiki for more information on how to install and use the mod
 
 Please note that this module is still an **early work in progress!** Big changes are still being made, with new features and improvements still to be made to the code.
 
-The feature list below will continue to grow and improve over time as the module is developed. Please check out the roadmap below for an idea on what is coming!
+The feature list below will continue to grow and improve over time as the module is developed. Please check out the roadmap below for an idea of what is coming!
 
 * Adds a new node for generating and sending crash report data to online servers
   * Crash report generation is currently using [Google Breakpad](https://chromium.googlesource.com/breakpad/breakpad/)
-  * This node generates crash reports and automatically uploads it for processing, making it easier and faster to resolve bugs. This node is currently the primary intreface for setting up and using this module
+  * This node generates crash reports and automatically uploads it for processing, making it easier and faster to resolve bugs. This node is currently the primary interface for setting up and using this module
   * The node provides a flexible system for setting the server URL, project token, and attributes
   * Currently the node is named `Breakpad`, however this name may change in the future!
 * Written in C++ for fast and efficient error generation
   * This allows the code to capture crashes caused by Godot's C++ code and accurately generate symbol files
-* Currently only supports Linux (*more platforms coming soon!*)
+* More platforms coming soon! (Currently only supports Linux)
 
 ## Roadmap
 

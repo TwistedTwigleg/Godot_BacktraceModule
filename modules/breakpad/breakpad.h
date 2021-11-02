@@ -22,7 +22,7 @@ public:
 
     static Dictionary crash_attributes;
 
-    void start_crashpad();
+    void start_breakpad();
 
     static bool dump_callback(const google_breakpad::MinidumpDescriptor& descriptor, void* context, bool succeeded);
     void force_crash();

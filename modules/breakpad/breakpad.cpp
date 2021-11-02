@@ -12,14 +12,14 @@ bool Breakpad::skip_error_upload = false;
 Dictionary Breakpad::crash_attributes = Dictionary();
 
 
-void Breakpad::start_crashpad() {
+void Breakpad::start_breakpad() {
     static google_breakpad::MinidumpDescriptor descriptor("/tmp");
     google_breakpad::ExceptionHandler* excHandler = NULL;
     excHandler = new google_breakpad::ExceptionHandler(descriptor, NULL, dump_callback, NULL, true, -1);
 }
 
 void Breakpad::_bind_methods() {
-    ClassDB::bind_method(D_METHOD("start_crashpad"), &Breakpad::start_crashpad);
+    ClassDB::bind_method(D_METHOD("start_breakpad"), &Breakpad::start_breakpad);
     ClassDB::bind_method(D_METHOD("force_crash"), &Breakpad::force_crash);
 
     ClassDB::bind_method(D_METHOD("set_api_url", "api_url"), &Breakpad::set_api_url);
@@ -77,8 +77,6 @@ Dictionary Breakpad::get_crash_attributes()
 
 bool Breakpad::dump_callback(const google_breakpad::MinidumpDescriptor& descriptor, void* context, bool succeeded)
 {
-    //printf("Dump path: %s\n", descriptor.path());
-    
     if (Breakpad::skip_error_upload == true)
     {
         return succeeded;
@@ -99,22 +97,12 @@ bool Breakpad::dump_callback(const google_breakpad::MinidumpDescriptor& descript
         String key_string = (String)key;
         String value_string = (String)value;
 
-        // TODO - test this!
         arguments_string += ("&" + key_string + "=" + value_string);
     }
 
     arguments.push_back(Breakpad::api_URL + Breakpad::api_token + "/minidump" + arguments_string);
 
     OS::get_singleton()->execute("curl", arguments);
-
-    // Debug - view CURL output string
-    /*
-    String curl_debug_string = "curl ";
-    for (int i = 0; i < arguments.size(); i++) {
-        curl_debug_string += " " + arguments[i];
-    }
-    print_line("Curl execute call: Curl " + curl_debug_string + "\n");
-    */
 
     return succeeded;
 }
