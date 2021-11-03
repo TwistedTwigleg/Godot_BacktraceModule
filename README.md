@@ -32,6 +32,7 @@ Below is the roadmap for features and additions to be made to this module:
 * Replace use of `curl` with a built-in HTTPS solution for better portability
 * Add support for attaching Godot generated log files automatically to crash reports
 * Add Android and iOS support
+* Add support for Godot 4.0
 * (*And more! If you have any suggestions, please make a feature request issue!*)
 
 Please note the roadmap above is not necessarily in priority order and will continue to evolve as development on the module progresses.
