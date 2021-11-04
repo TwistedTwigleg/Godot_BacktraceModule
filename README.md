@@ -20,6 +20,7 @@ The feature list below will continue to grow and improve over time as the module
 * Written in C++ for fast and efficient error generation
   * This allows the code to capture crashes caused by Godot's C++ code and accurately generate symbol files
 * More platforms coming soon! (Currently only supports Linux)
+* Supports attaching Godot generated log files automatically to crash reports
 
 ## Roadmap
 
@@ -30,7 +31,6 @@ Below is the roadmap for features and additions to be made to this module:
 * Replace Google Breakpad with [Google Crashpad](https://chromium.googlesource.com/crashpad/crashpad/)
   * Using Crashpad should allow for better MacOS support, as well as more cross-platform code
 * Replace use of `curl` with a built-in HTTPS solution for better portability
-* Add support for attaching Godot generated log files automatically to crash reports
 * Add Android and iOS support
 * Add support for Godot 4.0
 * (*And more! If you have any suggestions, please make a feature request issue!*)
