@@ -12,26 +12,37 @@ Please note that this module is still an **early work in progress!** Big changes
 
 The feature list below will continue to grow and improve over time as the module is developed. Please check out the roadmap below for an idea of what is coming!
 
-* Adds a new node for generating and sending crash report data to online servers
-  * Crash report generation is currently using [Google Breakpad](https://chromium.googlesource.com/breakpad/breakpad/)
-  * This node generates crash reports and automatically uploads it for processing, making it easier and faster to resolve bugs. This node is currently the primary interface for setting up and using this module
+* Adds two new nodes for generating and sending crash report data to online servers
+  * Adds two new nodes: `Crashpad` and `Breakpad`.
+    * For Windows and MacOS, [Google Crashpad](https://chromium.googlesource.com/crashpad/crashpad/) is used to generate and send crash reports
+      * *Documentation for how to build and use Crashpad **coming soon** to the wiki!*
+    * For Linux,[Google Breakpad](https://chromium.googlesource.com/breakpad/breakpad/) is used to generate and send crash reports
+    * Both nodes will compile and all platforms but will not function properly unless on the correct OS.
+      * For example, if using `Breakpad` on Windows, the node will print a warning but otherwise not do anything. Likewise, using `Crashpad` on Linux will just print a warning.
+      * This allows you to use both nodes in your projects without having to worry about it crashing or breaking.
+  * These nodes generate crash reports and automatically uploads it for processing, making it easier and faster to resolve bugs. The new nodes are the primary interface for setting up and using this module
   * The node provides a flexible system for setting the server URL, project token, and attributes
-  * Currently the node is named `Breakpad`, however this name may change in the future!
+    * `Breakpad` can also upload the Godot log files automatically if enabled in the node and project settings.
 * Written in C++ for fast and efficient error generation
   * This allows the code to capture crashes caused by Godot's C++ code and accurately generate symbol files
-* More platforms coming soon! (Currently only supports Linux)
-* Supports attaching Godot generated log files automatically to crash reports
+* Supports Windows, MacOS, and Linux
+  * MacOS support has not yet been tested, but it should work
 
 ## Roadmap
 
 Below is the roadmap for features and additions to be made to this module:
 
-* Add Windows support
-* Add MacOS support
-* Replace Google Breakpad with [Google Crashpad](https://chromium.googlesource.com/crashpad/crashpad/)
-  * Using Crashpad should allow for better MacOS support, as well as more cross-platform code
-* Replace use of `curl` with a built-in HTTPS solution for better portability
-* Add Android and iOS support
+* Add documentation on how to build and use Crashpad on Windows and MacOS to the wiki
+* `Breakpad` module roadmap:
+  * Adjust property names and layout to better fit Crashpad. Make APIs as similar as possible
+  * Replace use of `curl` with a built-in HTTPS solution for better portability
+* `Crashpad` module roadmap:
+  * Add attachment support to upload Godot log files
+  * Add Linux support
+    * As of when this was written, Crashpad does not support Linux. It is on the ["in progress" section for Crashpad](https://chromium.googlesource.com/crashpad/crashpad/+/HEAD/doc/status.md), so support can be added in the future.
+  * Add Android support
+  * Add iOS support
+    * As of when this was written, Crashpad does not support iOS. It is on the ["in progress" section for Crashpad](https://chromium.googlesource.com/crashpad/crashpad/+/HEAD/doc/status.md), so support can be added in the future.
 * Add support for Godot 4.0
 * (*And more! If you have any suggestions, please make a feature request issue!*)
 
