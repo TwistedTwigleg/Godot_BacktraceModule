@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+
+Import("env")
+
+env.add_source_files(env.modules_sources, "*.cpp")
+
+# If compiling on Windows or MacOS:
+if env["platform"] == "windows" or env["platform"] == "osx":
+    env.Append(CPPPATH=["#thirdparty/crashpad/"])
+    env.Append(CPPPATH=["#thirdparty/crashpad/crashpad/third_party/mini_chromium/mini_chromium/"])
+    env.Append(CPPPATH=["#thirdparty/crashpad/crashpad"])
+    env.Append(CPPPATH=["#thirdparty/crashpad/crashpad/out/Default/gen/"])
+
+# If compiling on Windows
+if env["platform"] == "windows":
+    env.Append(LIBS=File('lib/client.lib'))
+    env.Append(LIBS=File('lib/util.lib'))
+    env.Append(LIBS=File('lib/base.lib'))
+    env.Append(LIBS=File('lib/common.lib'))
+# If compiling on Mac (untested)
+elif env["platform"] == "osx":
+    env.Append(LIBS=File('lib/libclient.a'))
+    env.Append(LIBS=File('lib/libutil.a'))
+    env.Append(LIBS=File('lib/libbase.a'))
+    env.Append(LIBS=File('lib/libcommon.a'))
+
+# As of when this was last edited, Crashpad does not support Linux desktop (though it is on the roadmap)
+# When Crashpad supports Linux, uncomment the code below:
+"""
+elif env["platform"] == "x11" or env["platform"] == "server" or env["platform"] == "linuxbsd":
+    env.Append(LIBS=File('lib/libclient.a'))
+    env.Append(LIBS=File('lib/libutil.a'))
+    env.Append(LIBS=File('lib/libbase.a'))
+    env.Append(LIBS=File('lib/libcommon.a'))
+"""

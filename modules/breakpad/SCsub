@@ -5,16 +5,9 @@ Import("env")
 
 env.add_source_files(env.modules_sources, "*.cpp")
 
-# Does not work currently!
-if env["platform"] == "windows":
-    """
-    module_path = Dir('.').srcnode().abspath
-    env.Append(LIBPATH=["%s/libs/"])
-    env.Append(LINKFLAGS=["*.lib"])
-    """
-else:
+if env["platform"] == "x11":
     env.Append(LIBS=["libbreakpad_client"])
-
-env.Append(RPATH=["."])
-env.Append(LIBPATH=["#thirdparty/breakpad"])
-env.Append(CPPPATH=["#thirdparty/breakpad/src"])
+    
+    env.Append(RPATH=["."])
+    env.Append(LIBPATH=["#thirdparty/breakpad"])
+    env.Append(CPPPATH=["#thirdparty/breakpad/src"])

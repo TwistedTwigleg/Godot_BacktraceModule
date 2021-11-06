@@ -8,16 +8,6 @@
 #include <breakpad/client/linux/handler/exception_handler.h>
 #endif
 
-// Does not work currently due to linker issues
-/*
-#ifdef WINDOWS_ENABLED
-#include <breakpad/client/windows/handler/exception_handler.h>
-#endif
-*/
-
-// TODO - add MaCOS Support
-// Use "#ifdef OSX_ENABLED"
-
 // Static variables
 String Breakpad::api_URL = "";
 String Breakpad::api_token = "";
@@ -34,19 +24,9 @@ void Breakpad::start_breakpad() {
     return;
 #endif
 
-    // Does not work currently due to linker issues
-    /*
-#ifdef WINDOWS_ENABLED
-    // Get the temporary directory from the environment variables
-    String temp_dir = OS::get_singleton()->get_environment("%TEMP%");  
-    google_breakpad::ExceptionHandler* excHandler = NULL;
-    excHandler = new google_breakpad::ExceptionHandler(temp_dir, NULL, dump_callback, NULL, google_breakpad::ExceptionHandler::HandlerType::HANDLER_ALL);
-    return;
-#endif
-    */
-
-    // If we have not returned yet, then this platform does not support crash reporting yet.
-    WARN_PRINT("Automatic error report generation not currently supported for this platform!");
+    // If we have not returned yet, then this platform does not support breakpad reporting yet.
+    WARN_PRINT("Breakpad not supported on this platform!");
+    print_line("Breakpad Warning: Breakpad not supported on this platform!");
     return;
 }
 
@@ -181,70 +161,10 @@ bool Breakpad::dump_callback(const google_breakpad::MinidumpDescriptor& descript
 }
 #endif
 
-// Does not work currently due to linker issues
-/*
-#ifdef WINDOWS_ENABLED
-bool Breakpad::dump_callback(const wchar_t* dump_path, const wchar_t* minidump_id, void* context, EXCEPTION_POINTERS* exinfo, MDRawAssertionInfo* assertion, bool succeeded)
-{
-    if (Breakpad::skip_error_upload == true)
-    {
-        return succeeded;
-    }
-
-    List<String> arguments;
-
-    // Start uploading using CURL
-    arguments.push_back("-v");
-    
-    // Upload arguments
-    for (int i = 0; i < Breakpad::crash_attributes.size(); i++)
-    {
-        Variant key = Breakpad::crash_attributes.get_key_at_index(i);
-        Variant value = Breakpad::crash_attributes.get_value_at_index(i);
-        String key_string = (String)key;
-        String value_string = (String)value;
-
-        arguments.push_back("-F");
-        arguments.push_back(key_string + "=" + value_string);
-    }
-
-    // Upload Minidump (setup)
-    arguments.push_back("-F");
-    arguments.push_back("upload_file_minidump=@" + String(dump_path));
-    arguments.push_back("-H");
-    arguments.push_back("Expect: gzip");
-
-    // Upload log file (optional)
-    ProjectSettings* project_singleton = ProjectSettings::get_singleton();
-    Variant project_setting_logging_enabled = project_singleton->get_setting("logging/file_logging/enable_file_logging");
-    if (project_setting_logging_enabled.get_type() == project_setting_logging_enabled.BOOL && (bool)project_setting_logging_enabled == true) {
-        Variant logging_filepath = project_singleton->get_setting("logging/file_logging/log_path");
-        String logging_filepath_string = (String)logging_filepath;
-        String log_filepath = project_singleton->globalize_path(logging_filepath_string);
-
-        // Upload log
-        arguments.push_back("-F");
-        arguments.push_back("godot_log.log=@" + log_filepath + "; type=application/text");
-        arguments.push_back(Breakpad::api_URL + Breakpad::api_token + "/minidump");
-    }
-    
-    // Uploading the actual Minidump
-    arguments.push_back(Breakpad::api_URL + Breakpad::api_token + "/minidump");
-
-    // Calling it on CURL
-    OS::get_singleton()->execute("curl", arguments);
-
-    return succeeded;
-}
-#endif
-*/
-
-
 void Breakpad::force_crash()
 {
     volatile int* a = (int*)(NULL); *a = 1;
 }
-
 
 Breakpad::Breakpad()
 {
