@@ -30,7 +30,6 @@ The feature list below will continue to grow and improve over time as the module
 
 Below is the roadmap for features and additions to be made to this module:
 
-* Add documentation on how to build and use Crashpad on Windows, MacOS, and Linux to the wiki
 * `Crashpad` module roadmap:
   * Add attachment support to upload Godot log files for Windows and MacOS
   * Investigate adding Android support
