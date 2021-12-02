@@ -53,8 +53,13 @@ void Crashpad::start_crashpad() {
     // Make sure the crashpad database directory exists or create it if it does not
     check_for_crashpad_database(true);
 
+#if defined WINDOWS_ENABLED
+    base::FilePath::StringType database_path((get_global_path_from_local_path(Crashpad::crashpad_database_path).c_str()));
+    base::FilePath::StringType handler_path((get_global_crashpad_application_path().c_str()));
+#else
     base::FilePath::StringType database_path(get_std_string_from_godot_string(get_global_path_from_local_path(Crashpad::crashpad_database_path)));
     base::FilePath::StringType handler_path(get_std_string_from_godot_string(get_global_crashpad_application_path()));
+#endif
 
     base::FilePath db(database_path);
     base::FilePath handler(handler_path);
